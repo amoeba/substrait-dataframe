@@ -81,6 +81,7 @@ class Relation:
                                             maintain_singular_struct=True,
                                         ),
                                     ),
+                                    filter=None,
                                 ),
                                 expressions=[
                                     Expression(

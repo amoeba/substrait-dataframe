@@ -6,7 +6,7 @@ from substrait.proto import Plan, PlanRel, RelRoot, ReadRel, Rel, NamedStruct, T
 from substrait.json import dump_json
 
 table_name = "penguins"
-filter_cols = ["species"]
+filter_cols = ["island"]
 col_names = ["species", "island"]
 col_types = [
     Type(string=Type.String(nullability=Type.Nullability.NULLABILITY_REQUIRED)),
@@ -49,4 +49,4 @@ con.sql("LOAD substrait;")
 con.sql("create table 'penguins' as select * from 'data/penguins.parquet';")
 # End cheating
 
-con.from_substrait(proto=serialized_plan)
+print(con.from_substrait(proto=serialized_plan))
