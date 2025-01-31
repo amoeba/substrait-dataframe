@@ -1,207 +1,207 @@
 {
-  "extensionUris": [
-    {
-      "extensionUriAnchor": 1,
-      "uri": "https://github.com/substrait-io/substrait/blob/main/extensions/"
-    },
-    {
-      "extensionUriAnchor": 2,
-      "uri": "https://github.com/substrait-io/substrait/blob/main/extensions/functions_boolean.yaml"
-    }
-  ],
-  "extensions": [
-    {
-      "extensionFunction": {
-        "extensionUriReference": 1,
-        "functionAnchor": 1,
-        "name": "equal:string_string"
-      }
-    },
-    {
-      "extensionFunction": {
-        "extensionUriReference": 1,
-        "functionAnchor": 2,
-        "name": "is_not_null:string"
-      }
-    },
-    {
-      "extensionFunction": {
-        "extensionUriReference": 2,
-        "functionAnchor": 3,
-        "name": "and:bool?"
-      }
-    }
-  ],
-  "relations": [
-    {
-      "root": {
-        "input": {
-          "project": {
-            "input": {
-              "read": {
-                "baseSchema": {
-                  "names": [
-                    "species",
-                    "island",
-                    "bill_length_mm",
-                    "bill_depth_mm",
-                    "flipper_length_mm",
-                    "body_mass_g",
-                    "sex",
-                    "year"
-                  ],
-                  "struct": {
-                    "types": [
-                      {
-                        "string": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "string": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "fp64": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "fp64": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "i32": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "i32": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "string": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "i32": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      }
-                    ],
-                    "nullability": "NULLABILITY_REQUIRED"
-                  }
-                },
-                "filter": {
-                  "scalarFunction": {
-                    "functionReference": 3,
-                    "outputType": {
-                      "bool": {
-                        "nullability": "NULLABILITY_NULLABLE"
-                      }
-                    },
-                    "arguments": [
-                      {
-                        "value": {
-                          "scalarFunction": {
-                            "functionReference": 1,
-                            "outputType": {
-                              "string": {
-                                "nullability": "NULLABILITY_NULLABLE"
-                              }
-                            },
-                            "arguments": [
-                              {
-                                "value": {
-                                  "selection": {
-                                    "directReference": {
-                                      "structField": {
-                                        "field": 1
-                                      }
-                                    },
-                                    "rootReference": {}
-                                  }
-                                }
-                              },
-                              {
-                                "value": {
-                                  "literal": {
-                                    "string": "Dream"
-                                  }
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      },
-                      {
-                        "value": {
-                          "scalarFunction": {
-                            "functionReference": 2,
-                            "outputType": {
-                              "string": {
-                                "nullability": "NULLABILITY_NULLABLE"
-                              }
-                            },
-                            "arguments": [
-                              {
-                                "value": {
-                                  "selection": {
-                                    "directReference": {
-                                      "structField": {
-                                        "field": 1
-                                      }
-                                    },
-                                    "rootReference": {}
-                                  }
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    ]
-                  }
-                },
-                "projection": {
-                  "select": {
-                    "structItems": [
-                      {}
-                    ]
-                  },
-                  "maintainSingularStruct": true
-                },
-                "namedTable": {
-                  "names": [
-                    "penguins"
-                  ]
-                }
-              }
-            },
-            "expressions": [
-              {
-                "selection": {
-                  "directReference": {
-                    "structField": {}
-                  },
-                  "rootReference": {}
-                }
-              }
-            ]
-          }
+    "extensionUris": [
+        {
+            "extensionUriAnchor": 1,
+            "uri": "https://github.com/substrait-io/substrait/blob/main/extensions/"
         },
-        "names": [
-          "species"
-        ]
-      }
+        {
+            "extensionUriAnchor": 2,
+            "uri": "https://github.com/substrait-io/substrait/blob/main/extensions/functions_boolean.yaml"
+        }
+    ],
+    "extensions": [
+        {
+            "extensionFunction": {
+                "extensionUriReference": 1,
+                "functionAnchor": 1,
+                "name": "equal:string_string"
+            }
+        },
+        {
+            "extensionFunction": {
+                "extensionUriReference": 1,
+                "functionAnchor": 2,
+                "name": "is_not_null:string"
+            }
+        },
+        {
+            "extensionFunction": {
+                "extensionUriReference": 2,
+                "functionAnchor": 3,
+                "name": "and:bool?"
+            }
+        }
+    ],
+    "relations": [
+        {
+            "root": {
+                "input": {
+                    "project": {
+                        "input": {
+                            "read": {
+                                "baseSchema": {
+                                    "names": [
+                                        "species",
+                                        "island",
+                                        "bill_length_mm",
+                                        "bill_depth_mm",
+                                        "flipper_length_mm",
+                                        "body_mass_g",
+                                        "sex",
+                                        "year"
+                                    ],
+                                    "struct": {
+                                        "types": [
+                                            {
+                                                "string": {
+                                                    "nullability": "NULLABILITY_NULLABLE"
+                                                }
+                                            },
+                                            {
+                                                "string": {
+                                                    "nullability": "NULLABILITY_NULLABLE"
+                                                }
+                                            },
+                                            {
+                                                "fp64": {
+                                                    "nullability": "NULLABILITY_NULLABLE"
+                                                }
+                                            },
+                                            {
+                                                "fp64": {
+                                                    "nullability": "NULLABILITY_NULLABLE"
+                                                }
+                                            },
+                                            {
+                                                "i32": {
+                                                    "nullability": "NULLABILITY_NULLABLE"
+                                                }
+                                            },
+                                            {
+                                                "i32": {
+                                                    "nullability": "NULLABILITY_NULLABLE"
+                                                }
+                                            },
+                                            {
+                                                "string": {
+                                                    "nullability": "NULLABILITY_NULLABLE"
+                                                }
+                                            },
+                                            {
+                                                "i32": {
+                                                    "nullability": "NULLABILITY_NULLABLE"
+                                                }
+                                            }
+                                        ],
+                                        "nullability": "NULLABILITY_REQUIRED"
+                                    }
+                                },
+                                "filter": {
+                                    "scalarFunction": {
+                                        "functionReference": 3,
+                                        "outputType": {
+                                            "bool": {
+                                                "nullability": "NULLABILITY_NULLABLE"
+                                            }
+                                        },
+                                        "arguments": [
+                                            {
+                                                "value": {
+                                                    "scalarFunction": {
+                                                        "functionReference": 1,
+                                                        "outputType": {
+                                                            "string": {
+                                                                "nullability": "NULLABILITY_NULLABLE"
+                                                            }
+                                                        },
+                                                        "arguments": [
+                                                            {
+                                                                "value": {
+                                                                    "selection": {
+                                                                        "directReference": {
+                                                                            "structField": {
+                                                                                "field": 1
+                                                                            }
+                                                                        },
+                                                                        "rootReference": {}
+                                                                    }
+                                                                }
+                                                            },
+                                                            {
+                                                                "value": {
+                                                                    "literal": {
+                                                                        "string": "Dream"
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "value": {
+                                                    "scalarFunction": {
+                                                        "functionReference": 2,
+                                                        "outputType": {
+                                                            "string": {
+                                                                "nullability": "NULLABILITY_NULLABLE"
+                                                            }
+                                                        },
+                                                        "arguments": [
+                                                            {
+                                                                "value": {
+                                                                    "selection": {
+                                                                        "directReference": {
+                                                                            "structField": {
+                                                                                "field": 1
+                                                                            }
+                                                                        },
+                                                                        "rootReference": {}
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                "projection": {
+                                    "select": {
+                                        "structItems": [
+                                            {}
+                                        ]
+                                    },
+                                    "maintainSingularStruct": true
+                                },
+                                "namedTable": {
+                                    "names": [
+                                        "penguins"
+                                    ]
+                                }
+                            }
+                        },
+                        "expressions": [
+                            {
+                                "selection": {
+                                    "directReference": {
+                                        "structField": {}
+                                    },
+                                    "rootReference": {}
+                                }
+                            }
+                        ]
+                    }
+                },
+                "names": [
+                    "species"
+                ]
+            }
+        }
+    ],
+    "version": {
+        "minorNumber": 53,
+        "producer": "DuckDB"
     }
-  ],
-  "version": {
-    "minorNumber": 53,
-    "producer": "DuckDB"
-  }
 }
