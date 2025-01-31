@@ -1,4 +1,4 @@
-from substrait_dataframe.relation import Field
+from substrait_dataframe import Field
 
 
 def test_field_equality_inequality():
