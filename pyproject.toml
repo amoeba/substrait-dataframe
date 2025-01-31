@@ -7,7 +7,7 @@ authors = [
     { name = "Bryce Mecum", email = "petridish@gmail.com" }
 ]
 requires-python = ">=3.13"
-dependencies = ["duckdb", "substrait"]
+dependencies = ["duckdb", "substrait", "pytest"]
 
 [project.scripts]
 substrait-dataframe = "substrait_dataframe:main"
