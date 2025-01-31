@@ -33,6 +33,14 @@ class Field:
 
         if type_shortname == "string":
             return Type(string=Type.String(nullability=nullability))
+        elif type_shortname == "i32":
+            return Type(string=Type.I32(nullability=nullability))
+        elif type_shortname == "i64":
+            return Type(string=Type.I64(nullability=nullability))
+        elif type_shortname == "fp32":
+            return Type(string=Type.FP32(nullability=nullability))
+        elif type_shortname == "fp64":
+            return Type(string=Type.FP64(nullability=nullability))
         else:
             raise Exception(f"Field type {type} not supported yet.")
 
