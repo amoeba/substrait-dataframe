@@ -25,6 +25,9 @@ class Field:
 
         return True
 
+    def __repr__(self):
+        return f"Field({self.name})"
+
     def lookup_type(self, type_shortname, nullable=False):
         if nullable:
             nullability = Type.Nullability.NULLABILITY_REQUIRED
@@ -120,7 +123,9 @@ class Relation:
                                         selection=Expression.FieldReference(
                                             direct_reference=Expression.ReferenceSegment(
                                                 struct_field=Expression.ReferenceSegment.StructField(
-                                                    field=self.fields.index(field)
+                                                    field=self.selected_fields.index(
+                                                        field
+                                                    )
                                                 )
                                             ),
                                             root_reference=Expression.FieldReference.RootReference(),
