@@ -12,12 +12,14 @@ class DataFrame:
         self.backend = backend
 
     def select(self, names):
-        return DataFrame(relation=self.relation.select(names), backend=self.backend)
+        self.relation = self.relation.select(names)
+
+        return self
 
     def filter(self, expression: Expression):
-        new_relation = self.relation.filter(expression)
+        self.relation = self.relation.filter(expression)
 
-        return DataFrame(relation=new_relation, backend=self.backend)
+        return self
 
     def to_substrait(self):
         return self.relation.to_substrait()
