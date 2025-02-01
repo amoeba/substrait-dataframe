@@ -32,27 +32,6 @@ class Relation:
         return self
 
     def to_substrait(self):
-        # TODO: Add in producer agent
-        # return Plan(
-        #     relations=[
-        #         PlanRel(
-        #             root=RelRoot(
-        #                 names=[field.name for field in self.fields],
-        #                 input=Rel(
-        #                     read=ReadRel(
-        #                         named_table=ReadRel.NamedTable(names=[self.name]),
-        #                         base_schema=NamedStruct(
-        #                             names=[field.name for field in self.fields],
-        #                             struct=Type.Struct(
-        #                                 types=[field.type for field in self.fields]
-        #                             ),
-        #                         ),
-        #                     )
-        #                 ),
-        #             )
-        #         )
-        #     ]
-        # )
         plan = Plan(
             relations=[
                 PlanRel(
