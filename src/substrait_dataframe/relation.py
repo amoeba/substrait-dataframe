@@ -100,7 +100,7 @@ class Relation:
 
         return Expression(
             scalar_function=Expression.ScalarFunction(
-                function_reference=1,
+                function_reference=3,
                 output_type=Type(
                     bool=Type.Boolean(nullability=Type.Nullability.NULLABILITY_REQUIRED)
                 ),
@@ -120,7 +120,9 @@ class Relation:
                                             selection=Expression.FieldReference(
                                                 direct_reference=Expression.ReferenceSegment(
                                                     struct_field=Expression.ReferenceSegment.StructField(
-                                                        field=1
+                                                        field=self.fields.index(
+                                                            self.current_filter.field
+                                                        )
                                                     )
                                                 ),
                                                 root_reference=Expression.FieldReference.RootReference(),
@@ -129,7 +131,9 @@ class Relation:
                                     ),
                                     FunctionArgument(
                                         value=Expression(
-                                            literal=Expression.Literal(string="Dream")
+                                            literal=Expression.Literal(
+                                                string=self.current_filter.value
+                                            )
                                         )
                                     ),
                                 ],
@@ -151,7 +155,9 @@ class Relation:
                                             selection=Expression.FieldReference(
                                                 direct_reference=Expression.ReferenceSegment(
                                                     struct_field=Expression.ReferenceSegment.StructField(
-                                                        field=1
+                                                        field=self.fields.index(
+                                                            self.current_filter.field
+                                                        )
                                                     )
                                                 ),
                                                 root_reference=Expression.FieldReference.RootReference(),
