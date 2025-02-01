@@ -22,9 +22,29 @@ df = DataFrame(
     backend=Backend(con).enable(),
 )
 
-tbl = (
+
+# select * from penguins
+print(
+    df.select([Field("island", "string"), Field("species", "string")])
+    .execute()
+    .to_pandas()
+)
+
+# select island from penguins
+print(
+    df.select(
+        [
+            Field("island", "string"),
+        ]
+    )
+    .execute()
+    .to_pandas()
+)
+
+# select species from penguins where island = 'Dream';
+print(
     df.select([Field("island", "string"), Field("species", "string")])
     .filter(Expression.IsInStringLiteral(Field("island", "string"), "Dream"))
     .execute()
+    .to_pandas()
 )
-print(tbl.to_pandas())
