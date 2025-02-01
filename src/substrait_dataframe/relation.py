@@ -53,7 +53,7 @@ class Relation:
         #         )
         #     ]
         # )
-        return Plan(
+        plan = Plan(
             relations=[
                 PlanRel(
                     root=RelRoot(
@@ -112,6 +112,8 @@ class Relation:
             extension_uris=self.substrait_extension_uris(),
             version=Version(producer="SubstraitDataFrame"),
         )
+
+        return plan
 
     def substrait_filter(self):
         if self.current_filter is None:
