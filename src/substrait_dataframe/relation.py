@@ -98,86 +98,14 @@ class Relation:
         if self.current_filter is None:
             return None
 
-        return Expression(
-            scalar_function=Expression.ScalarFunction(
-                function_reference=3,
-                output_type=Type(
-                    bool=Type.Boolean(nullability=Type.Nullability.NULLABILITY_REQUIRED)
-                ),
-                arguments=[
-                    FunctionArgument(
-                        value=Expression(
-                            scalar_function=Expression.ScalarFunction(
-                                function_reference=1,
-                                output_type=Type(
-                                    string=Type.String(
-                                        nullability=Type.Nullability.NULLABILITY_REQUIRED
-                                    )
-                                ),
-                                arguments=[
-                                    FunctionArgument(
-                                        value=Expression(
-                                            selection=Expression.FieldReference(
-                                                direct_reference=Expression.ReferenceSegment(
-                                                    struct_field=Expression.ReferenceSegment.StructField(
-                                                        field=self.fields.index(
-                                                            self.current_filter.field
-                                                        )
-                                                    )
-                                                ),
-                                                root_reference=Expression.FieldReference.RootReference(),
-                                            )
-                                        )
-                                    ),
-                                    FunctionArgument(
-                                        value=Expression(
-                                            literal=Expression.Literal(
-                                                string=self.current_filter.value
-                                            )
-                                        )
-                                    ),
-                                ],
-                            )
-                        )
-                    ),
-                    FunctionArgument(
-                        value=Expression(
-                            scalar_function=Expression.ScalarFunction(
-                                function_reference=2,
-                                output_type=Type(
-                                    string=Type.String(
-                                        nullability=Type.Nullability.NULLABILITY_REQUIRED
-                                    )
-                                ),
-                                arguments=[
-                                    FunctionArgument(
-                                        value=Expression(
-                                            selection=Expression.FieldReference(
-                                                direct_reference=Expression.ReferenceSegment(
-                                                    struct_field=Expression.ReferenceSegment.StructField(
-                                                        field=self.fields.index(
-                                                            self.current_filter.field
-                                                        )
-                                                    )
-                                                ),
-                                                root_reference=Expression.FieldReference.RootReference(),
-                                            )
-                                        )
-                                    ),
-                                ],
-                            )
-                        )
-                    ),
-                ],
-            )
-        )
+        return self.current_filter.to_substrait(self.fields)
 
     def substrait_extensions(self):
         if self.current_filter is None:
             return []
 
         if type(self.current_filter) == expr.Expression.IsInStringLiteral:
-            return self.current_filter.extensions()
+            return self.current_filter.substrait_extensions()
         else:
             raise Exception("Filter type not supported")
 
@@ -186,6 +114,6 @@ class Relation:
             return []
 
         if type(self.current_filter) == expr.Expression.IsInStringLiteral:
-            return self.current_filter.extension_uris()
+            return self.current_filter.substrait_extension_uris()
         else:
             raise Exception("Filter type not supported")
