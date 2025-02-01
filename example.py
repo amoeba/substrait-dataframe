@@ -1,6 +1,7 @@
 import duckdb
 
 from substrait_dataframe import Backend, DataFrame, Field, Relation
+from substrait_dataframe.expression import Expression
 
 con = duckdb.connect()
 
@@ -21,5 +22,9 @@ df = DataFrame(
     backend=Backend(con).enable(),
 )
 
-tbl = df.select([Field("sex", "string"), Field("island", "string")]).execute()
+tbl = (
+    df.select([Field("island", "string"), Field("species", "string")])
+    .filter(Expression.IsInStringLiteral(Field("island", "string"), "Dream"))
+    .execute()
+)
 print(tbl.to_pandas())

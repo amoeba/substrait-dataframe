@@ -9,7 +9,9 @@ from substrait.proto import (
     NamedStruct,
     Type,
     Version,
+    FunctionArgument,
 )
+import substrait_dataframe.expression as expr
 
 
 class Relation:
@@ -17,14 +19,17 @@ class Relation:
         self.name = name
         self.fields = fields
         self.selected_fields = []
+        self.current_filter = None
 
     def select(self, fields):
         self.selected_fields = [f for f in fields]
 
         return self
 
-    # def filter(self, something):
-    #     pass
+    def filter(self, expression):
+        self.current_filter = expression
+
+        return self
 
     def to_substrait(self):
         # TODO: Add in producer agent
@@ -80,8 +85,8 @@ class Relation:
                                             ),
                                             maintain_singular_struct=True,
                                         ),
+                                        filter=self.substrait_filter(),
                                     ),
-                                    filter=None,
                                 ),
                                 expressions=[
                                     Expression(
@@ -103,5 +108,91 @@ class Relation:
                     )
                 )
             ],
+            extensions=self.substrait_extensions(),
+            extension_uris=self.substrait_extension_uris(),
             version=Version(producer="SubstraitDataFrame"),
         )
+
+    def substrait_filter(self):
+        # if self.filter is None:
+        # return None
+
+        return Expression(
+            scalar_function=Expression.ScalarFunction(
+                function_reference=1,
+                output_type=Type(
+                    bool=Type.Boolean(nullability=Type.Nullability.NULLABILITY_REQUIRED)
+                ),
+                arguments=[
+                    FunctionArgument(
+                        value=Expression(
+                            scalar_function=Expression.ScalarFunction(
+                                function_reference=1,
+                                output_type=Type(
+                                    string=Type.String(
+                                        nullability=Type.Nullability.NULLABILITY_REQUIRED
+                                    )
+                                ),
+                                arguments=[
+                                    FunctionArgument(
+                                        value=Expression(
+                                            selection=Expression.FieldReference(
+                                                direct_reference=Expression.ReferenceSegment(
+                                                    struct_field=Expression.ReferenceSegment.StructField(
+                                                        field=1
+                                                    )
+                                                ),
+                                                root_reference=Expression.FieldReference.RootReference(),
+                                            )
+                                        )
+                                    ),
+                                    FunctionArgument(
+                                        value=Expression(
+                                            literal=Expression.Literal(string="Dream")
+                                        )
+                                    ),
+                                ],
+                            )
+                        )
+                    ),
+                    FunctionArgument(
+                        value=Expression(
+                            scalar_function=Expression.ScalarFunction(
+                                function_reference=2,
+                                output_type=Type(
+                                    string=Type.String(
+                                        nullability=Type.Nullability.NULLABILITY_REQUIRED
+                                    )
+                                ),
+                                arguments=[
+                                    FunctionArgument(
+                                        value=Expression(
+                                            selection=Expression.FieldReference(
+                                                direct_reference=Expression.ReferenceSegment(
+                                                    struct_field=Expression.ReferenceSegment.StructField(
+                                                        field=1
+                                                    )
+                                                ),
+                                                root_reference=Expression.FieldReference.RootReference(),
+                                            )
+                                        )
+                                    ),
+                                ],
+                            )
+                        )
+                    ),
+                ],
+            )
+        )
+
+    def substrait_extensions(self):
+        if type(self.current_filter) == expr.Expression.IsInStringLiteral:
+            return self.current_filter.extensions()
+        else:
+            raise Exception("Filter type not supported")
+
+    def substrait_extension_uris(self):
+        if type(self.current_filter) == expr.Expression.IsInStringLiteral:
+            return self.current_filter.extension_uris()
+        else:
+            raise Exception("Filter type not supported")

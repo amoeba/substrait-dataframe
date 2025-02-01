@@ -1,6 +1,7 @@
 import duckdb
 
 from substrait_dataframe.backend import Backend
+from substrait_dataframe.expression import Expression
 from substrait_dataframe.relation import Relation
 
 
@@ -13,10 +14,10 @@ class DataFrame:
     def select(self, names):
         return DataFrame(relation=self.relation.select(names), backend=self.backend)
 
-    # def filter(self, filters):
-    #     new_relation = self.relation.filter(filters)
+    def filter(self, expression: Expression):
+        new_relation = self.relation.filter(expression)
 
-    #     DataFrame(relation=new_relation)
+        return DataFrame(relation=new_relation, backend=self.backend)
 
     def to_substrait(self):
         return self.relation.to_substrait()
