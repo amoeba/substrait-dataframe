@@ -22,6 +22,12 @@ df = DataFrame(
 )
 
 
-p = df.select([Field("island", "string"), Field("species", "string")]).plan()
-with open("plan", "wb") as f:
-    f.write(p.SerializeToString())
+plan = df.select([Field("island", "string"), Field("species", "string")]).plan()
+import substrait.json
+
+# json
+substrait.json.write_json(plan, "tools/plan.json")
+
+# protobuf binary
+with open("tools/plan.bin", "wb") as f:
+    f.write(plan.SerializeToString())

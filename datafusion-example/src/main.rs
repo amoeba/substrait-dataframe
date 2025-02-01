@@ -14,7 +14,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     .await?;
 
     let plan: Box<datafusion_substrait::substrait::proto::Plan> =
-        serializer::deserialize("../plan").await?;
+        serializer::deserialize("../tools/plan.bin").await?;
     let logical_plan = from_substrait_plan(&ctx.state(), &plan).await?;
     let new_df = ctx.execute_logical_plan(logical_plan).await?;
 
