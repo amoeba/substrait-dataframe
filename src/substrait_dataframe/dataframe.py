@@ -24,6 +24,9 @@ class DataFrame:
     def to_substrait(self):
         return self.relation.to_substrait()
 
+    def plan(self):
+        return self.relation.substrait_plan()
+
     def execute(self):
         if self.backend is None:
             raise Exception("Backend not set.")
