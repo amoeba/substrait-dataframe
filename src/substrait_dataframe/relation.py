@@ -114,8 +114,8 @@ class Relation:
         )
 
     def substrait_filter(self):
-        # if self.filter is None:
-        # return None
+        if self.current_filter is None:
+            return None
 
         return Expression(
             scalar_function=Expression.ScalarFunction(
@@ -186,12 +186,18 @@ class Relation:
         )
 
     def substrait_extensions(self):
+        if self.current_filter is None:
+            return []
+
         if type(self.current_filter) == expr.Expression.IsInStringLiteral:
             return self.current_filter.extensions()
         else:
             raise Exception("Filter type not supported")
 
     def substrait_extension_uris(self):
+        if self.current_filter is None:
+            return []
+
         if type(self.current_filter) == expr.Expression.IsInStringLiteral:
             return self.current_filter.extension_uris()
         else:
