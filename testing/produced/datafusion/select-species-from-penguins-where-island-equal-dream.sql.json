@@ -1,0 +1,140 @@
+{
+  "extensions": [
+    {
+      "extensionFunction": {
+        "extensionUriReference": 4294967295,
+        "name": "equal"
+      }
+    }
+  ],
+  "relations": [
+    {
+      "root": {
+        "input": {
+          "project": {
+            "common": {
+              "emit": {
+                "outputMapping": [
+                  2
+                ]
+              }
+            },
+            "input": {
+              "filter": {
+                "input": {
+                  "read": {
+                    "baseSchema": {
+                      "names": [
+                        "species",
+                        "island",
+                        "bill_length_mm",
+                        "bill_depth_mm",
+                        "body_mass_g",
+                        "sex",
+                        "year"
+                      ],
+                      "struct": {
+                        "types": [
+                          {
+                            "string": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          },
+                          {
+                            "string": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          },
+                          {
+                            "i32": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          },
+                          {
+                            "i32": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          },
+                          {
+                            "i32": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          },
+                          {
+                            "string": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          },
+                          {
+                            "i32": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "projection": {
+                      "select": {
+                        "structItems": [
+                          {},
+                          {
+                            "field": 1
+                          }
+                        ]
+                      }
+                    },
+                    "namedTable": {
+                      "names": [
+                        "penguins"
+                      ]
+                    }
+                  }
+                },
+                "condition": {
+                  "scalarFunction": {
+                    "arguments": [
+                      {
+                        "value": {
+                          "selection": {
+                            "directReference": {
+                              "structField": {
+                                "field": 1
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "value": {
+                          "literal": {
+                            "string": "Dream"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "expressions": [
+              {
+                "selection": {
+                  "directReference": {
+                    "structField": {}
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "names": [
+          "species"
+        ]
+      }
+    }
+  ],
+  "version": {
+    "minorNumber": 58,
+    "producer": "datafusion"
+  }
+}
