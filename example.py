@@ -1,6 +1,6 @@
 import duckdb
 
-from substrait_dataframe import Backend, DataFrame, Field, Relation
+from substrait_dataframe import DuckDBBackend, DataFrame, Field, Relation
 from substrait_dataframe.expression import Expression
 
 con = duckdb.connect()
@@ -19,7 +19,7 @@ df = DataFrame(
             Field("year", "i32"),
         ],
     ),
-    backend=Backend(con).enable(),
+    backend=DuckDBBackend(con).enable(),
 )
 
 
