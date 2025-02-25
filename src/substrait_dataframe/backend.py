@@ -14,7 +14,7 @@ class DuckDBBackend(Backend):
         super().__init__(connection)
 
     def enable(self):
-        self.sql("INSTALL substrait;")
+        self.sql("INSTALL substrait FROM community;")
         self.sql("LOAD substrait;")
         self.sql("CREATE TABLE 'penguins' AS SELECT * FROM 'data/penguins.parquet';")
 
