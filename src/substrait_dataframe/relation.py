@@ -49,6 +49,8 @@ class Relation:
         if len(self.selected_fields) <= 0:
             self.selected_fields = self.fields
 
+        # Note: We only support a Read root relation so we don't support
+        # common queries like aggregates and joins
         return RelRoot(
             names=[field.name for field in self.selected_fields],
             input=Rel(
