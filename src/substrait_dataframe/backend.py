@@ -40,11 +40,10 @@ class DuckDBBackend(Backend):
         blob = "".join([f"\\x{b:02x}" for b in proto])
         return self.sql(f"CALL from_substrait('{blob}'::BLOB);")
 
-    def from_substrait_json(self, proto):
+    def from_substrait_json(self, json):
         """
         Executes a Substrait plan written in JSON against DuckDB and returns the
         results
         """
 
-        blob = "".join([f"\\x{b:02x}" for b in proto])
-        return self.sql(f"CALL from_substrait_json('{blob}'::BLOB);")
+        return self.sql(f"CALL from_substrait_json('{json}'::VARCHAR);")
