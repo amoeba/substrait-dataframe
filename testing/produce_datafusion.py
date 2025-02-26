@@ -22,9 +22,9 @@ schema = pa.schema(
 ctx.register_parquet("penguins", "./data/penguins.parquet", schema=schema)
 
 
-base_dir = "./queries"
+base_dir = os.path.join("testing", "./queries")
 query_files = os.listdir(base_dir)
-produced_path_prefix = os.path.join("produced", "datafusion")
+produced_path_prefix = os.path.join("testing", "produced", "datafusion")
 
 for query_file in query_files:
     with open(os.path.join(base_dir, query_file)) as query_reader:

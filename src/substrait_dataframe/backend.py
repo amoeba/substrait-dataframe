@@ -5,11 +5,6 @@ class Backend:
     def sql(self, query_string):
         return self.connection.sql(query_string)
 
-    def from_substrait(self, proto):
-        # TODO: Is there a better/simpler way to do this?
-        blob = "".join([f"\\x{b:02x}" for b in proto])
-        return self.connection.sql(f"CALL from_substrait('{blob}'::BLOB);")
-
 
 class DuckDBBackend(Backend):
     def __init__(self, connection):
@@ -21,3 +16,35 @@ class DuckDBBackend(Backend):
         self.sql("CREATE TABLE 'penguins' AS SELECT * FROM 'data/penguins.parquet';")
 
         return self
+
+    def get_substrait(self, sql):
+        """
+        Converts the provided query into a binary Substrait plan
+        """
+
+        return self.sql(f'CALL get_substrait("{sql}")')
+
+    def get_substrait_json(self, sql):
+        """
+        Converts the provided query into a Substrait plan in JSON
+        """
+
+        return self.sql(f'CALL get_substrait_json("{sql}")')
+
+    def from_substrait(self, proto):
+        """
+        Executes a binary Substrait plan (provided as bytes) against DuckDB and
+        returns the results
+        """
+
+        blob = "".join([f"\\x{b:02x}" for b in proto])
+        return self.sql(f"CALL from_substrait('{blob}'::BLOB);")
+
+    def from_substrait_json(self, proto):
+        """
+        Executes a Substrait plan written in JSON against DuckDB and returns the
+        results
+        """
+
+        blob = "".join([f"\\x{b:02x}" for b in proto])
+        return self.sql(f"CALL from_substrait_json('{blob}'::BLOB);")
