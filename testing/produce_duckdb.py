@@ -9,11 +9,6 @@ con = duckdb.connect()
 backend = DuckDBBackend(con)
 backend.enable()
 
-# con.sql("INSTALL substrait;")
-# con.sql("LOAD substrait;")
-# con.sql("CREATE TABLE 'penguins' AS SELECT * FROM '../data/penguins.parquet';")
-
-
 base_dir = os.path.join("testing", "queries")
 query_files = os.listdir(base_dir)
 produced_path_prefix = os.path.join("testing", "produced", "duckdb")
