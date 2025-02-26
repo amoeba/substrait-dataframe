@@ -38,63 +38,35 @@ class Relation:
 
     def substrait_plan(self):
         return Plan(
-            relations=[
-                PlanRel(
-                    root=RelRoot(
-                        names=[field.name for field in self.selected_fields],
-                        input=Rel(
-                            project=ProjectRel(
-                                input=Rel(
-                                    read=ReadRel(
-                                        named_table=ReadRel.NamedTable(
-                                            names=[self.name]
-                                        ),
-                                        base_schema=NamedStruct(
-                                            names=[field.name for field in self.fields],
-                                            struct=Type.Struct(
-                                                types=[
-                                                    field.type for field in self.fields
-                                                ],
-                                                nullability=Type.Nullability.NULLABILITY_REQUIRED,
-                                            ),
-                                        ),
-                                        projection=Expression.MaskExpression(
-                                            select=Expression.MaskExpression.StructSelect(
-                                                struct_items=[
-                                                    Expression.MaskExpression.StructItem(
-                                                        field=self.fields.index(field)
-                                                    )
-                                                    for field in self.selected_fields
-                                                ]
-                                            ),
-                                            maintain_singular_struct=True,
-                                        ),
-                                        filter=self.substrait_filter(),
-                                    ),
-                                ),
-                                expressions=[
-                                    Expression(
-                                        selection=Expression.FieldReference(
-                                            direct_reference=Expression.ReferenceSegment(
-                                                struct_field=Expression.ReferenceSegment.StructField(
-                                                    field=self.selected_fields.index(
-                                                        field
-                                                    )
-                                                )
-                                            ),
-                                            root_reference=Expression.FieldReference.RootReference(),
-                                        )
-                                    )
-                                    for field in self.selected_fields
-                                ],
-                            )
-                        ),
-                    )
-                )
-            ],
+            relations=self.substrait_relations(),
             extensions=self.substrait_extensions(),
             extension_uris=self.substrait_extension_uris(),
             version=Version(producer="SubstraitDataFrame"),
+        )
+
+    def substrait_relations(self):
+        return [PlanRel(root=self.substrait_root_rel())]
+
+    def substrait_root_rel(self):
+        # Handle no selection
+        if len(self.selected_fields) <= 0:
+            self.selected_fields = self.fields
+
+        return RelRoot(
+            names=[field.name for field in self.selected_fields],
+            input=Rel(
+                read=ReadRel(
+                    named_table=ReadRel.NamedTable(names=[self.name]),
+                    base_schema=NamedStruct(
+                        names=[field.name for field in self.fields],
+                        struct=Type.Struct(
+                            types=[field.type for field in self.fields],
+                            nullability=Type.Nullability.NULLABILITY_REQUIRED,
+                        ),
+                    ),
+                    filter=self.substrait_filter(),
+                ),
+            ),
         )
 
     def substrait_filter(self):

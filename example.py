@@ -24,6 +24,16 @@ df = DataFrame(
 
 
 # select * from penguins
+print("*" * 80)
+print("select * from penguins")
+print("*" * 80)
+print(df.execute().to_pandas())
+
+
+# select island, species from penguins
+print("*" * 80)
+print("select island, species from penguins")
+print("*" * 80)
 print(
     df.select([Field("island", "string"), Field("species", "string")])
     .execute()
@@ -31,6 +41,9 @@ print(
 )
 
 # select island from penguins
+print("*" * 80)
+print("select island from penguins")
+print("*" * 80)
 print(
     df.select(
         [
@@ -41,7 +54,10 @@ print(
     .to_pandas()
 )
 
-# select species from penguins where island = 'Dream';
+# select species from penguins where island = 'Dream'
+print("*" * 80)
+print("select species from penguins where island = 'Dream'")
+print("*" * 80)
 print(
     df.select([Field("island", "string"), Field("species", "string")])
     .filter(Expression.IsInStringLiteral(Field("island", "string"), "Dream"))
