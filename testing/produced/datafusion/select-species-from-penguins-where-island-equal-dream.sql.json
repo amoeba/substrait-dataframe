@@ -100,7 +100,8 @@
                               "structField": {
                                 "field": 1
                               }
-                            }
+                            },
+                            "rootReference": {}
                           }
                         }
                       },
@@ -121,7 +122,8 @@
                 "selection": {
                   "directReference": {
                     "structField": {}
-                  }
+                  },
+                  "rootReference": {}
                 }
               }
             ]
@@ -134,7 +136,7 @@
     }
   ],
   "version": {
-    "minorNumber": 58,
+    "minorNumber": 64,
     "producer": "datafusion"
   }
 }

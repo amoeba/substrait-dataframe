@@ -99,7 +99,7 @@
     }
   ],
   "version": {
-    "minorNumber": 58,
+    "minorNumber": 64,
     "producer": "datafusion"
   }
 }

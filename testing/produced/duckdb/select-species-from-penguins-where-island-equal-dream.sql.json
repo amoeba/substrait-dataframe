@@ -3,10 +3,6 @@
     {
       "extensionUriAnchor": 1,
       "uri": "https://github.com/substrait-io/substrait/blob/main/extensions/"
-    },
-    {
-      "extensionUriAnchor": 2,
-      "uri": "https://github.com/substrait-io/substrait/blob/main/extensions/functions_boolean.yaml"
     }
   ],
   "extensions": [
@@ -15,20 +11,6 @@
         "extensionUriReference": 1,
         "functionAnchor": 1,
         "name": "equal:string_string"
-      }
-    },
-    {
-      "extensionFunction": {
-        "extensionUriReference": 1,
-        "functionAnchor": 2,
-        "name": "is_not_null:string"
-      }
-    },
-    {
-      "extensionFunction": {
-        "extensionUriReference": 2,
-        "functionAnchor": 3,
-        "name": "and:bool?"
       }
     }
   ],
@@ -98,7 +80,7 @@
                 },
                 "filter": {
                   "scalarFunction": {
-                    "functionReference": 3,
+                    "functionReference": 1,
                     "outputType": {
                       "bool": {
                         "nullability": "NULLABILITY_NULLABLE"
@@ -107,60 +89,20 @@
                     "arguments": [
                       {
                         "value": {
-                          "scalarFunction": {
-                            "functionReference": 1,
-                            "outputType": {
-                              "string": {
-                                "nullability": "NULLABILITY_NULLABLE"
+                          "selection": {
+                            "directReference": {
+                              "structField": {
+                                "field": 1
                               }
                             },
-                            "arguments": [
-                              {
-                                "value": {
-                                  "selection": {
-                                    "directReference": {
-                                      "structField": {
-                                        "field": 1
-                                      }
-                                    },
-                                    "rootReference": {}
-                                  }
-                                }
-                              },
-                              {
-                                "value": {
-                                  "literal": {
-                                    "string": "Dream"
-                                  }
-                                }
-                              }
-                            ]
+                            "rootReference": {}
                           }
                         }
                       },
                       {
                         "value": {
-                          "scalarFunction": {
-                            "functionReference": 2,
-                            "outputType": {
-                              "string": {
-                                "nullability": "NULLABILITY_NULLABLE"
-                              }
-                            },
-                            "arguments": [
-                              {
-                                "value": {
-                                  "selection": {
-                                    "directReference": {
-                                      "structField": {
-                                        "field": 1
-                                      }
-                                    },
-                                    "rootReference": {}
-                                  }
-                                }
-                              }
-                            ]
+                          "literal": {
+                            "string": "Dream"
                           }
                         }
                       }
