@@ -32,7 +32,6 @@ for query_file in query_files:
         out_path = os.path.join(produced_path_prefix, f"{query_file}.json")
 
         # Serialize plan to protobuf binary
-        datafusion.substrait.Serde.serialize(query_text, ctx, "query.substrait")
         plan_bytes = datafusion.substrait.Serde.serialize_bytes(query_text, ctx)
 
         # Read it in and write it out as JSON
