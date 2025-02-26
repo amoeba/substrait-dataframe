@@ -1,15 +1,12 @@
 from substrait.proto import (
-    Expression,
     Plan,
     PlanRel,
-    ProjectRel,
     RelRoot,
     ReadRel,
     Rel,
     NamedStruct,
     Type,
     Version,
-    FunctionArgument,
 )
 import substrait_dataframe.expression as expr
 
