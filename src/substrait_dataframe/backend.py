@@ -6,7 +6,9 @@ class Backend:
         return self.connection.sql(query_string)
 
     def from_substrait(self, proto):
-        return self.connection.from_substrait(proto)
+        # TODO: Is there a better/simpler way to do this?
+        blob = "".join([f"\\x{b:02x}" for b in proto])
+        return self.connection.sql(f"CALL from_substrait('{blob}'::BLOB);")
 
 
 class DuckDBBackend(Backend):
