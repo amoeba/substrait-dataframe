@@ -64,3 +64,9 @@ print(
     .execute()
     .to_pandas()
 )
+
+# select species from penguins LIMIT 1
+print("*" * 80)
+print("select species from penguins LIMIT 1")
+print("*" * 80)
+print(df.limit(3).execute().to_pandas())

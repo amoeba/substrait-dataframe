@@ -21,6 +21,11 @@ class DataFrame:
 
         return self
 
+    def limit(self, count: int):
+        self.relation = self.relation.limit(count)
+
+        return self
+
     def to_substrait(self):
         return self.relation.to_substrait()
 
