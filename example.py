@@ -65,8 +65,14 @@ print(
     .to_pandas()
 )
 
-# select species from penguins LIMIT 1
+# select species from penguins where island = 'Dream' LIMIT 5
 print("*" * 80)
-print("select species from penguins LIMIT 1")
+print("select species from penguins where island = 'Dream' LIMIT 5")
 print("*" * 80)
-print(df.limit(3).execute().to_pandas())
+print(
+    df.select([Field("island", "string"), Field("species", "string")])
+    .filter(Expression.IsInStringLiteral(Field("island", "string"), "Dream"))
+    .limit(5)
+    .execute()
+    .to_pandas()
+)
