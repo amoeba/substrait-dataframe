@@ -12,8 +12,8 @@ schema = pa.schema(
     [
         pa.field("species", pa.string()),
         pa.field("island", pa.string()),
-        pa.field("bill_length_mm", pa.int32()),
-        pa.field("bill_depth_mm", pa.int32()),
+        pa.field("bill_length_mm", pa.float64()),
+        pa.field("bill_depth_mm", pa.float64()),
         pa.field("body_mass_g", pa.int32()),
         pa.field("sex", pa.string()),
         pa.field("year", pa.int32()),
