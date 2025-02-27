@@ -58,7 +58,7 @@ class Relation:
         if len(self.selected_fields) <= 0:
             self.selected_fields = self.fields
 
-        if self.limit is not None:
+        if self.current_limit is not None:
             return self.substrait_root_fetch()
         else:
             return self.substrait_root_read()
