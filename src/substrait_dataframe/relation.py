@@ -17,13 +17,12 @@ class Relation:
         self.name = name
         self.fields = fields
 
-        # TODO: Simplify these names?
-        self.selected_fields = []
+        self.current_selection = None
         self.current_filter = None
         self.current_limit = None
 
     def select(self, fields):
-        self.selected_fields = [f for f in fields]
+        self.current_selection = [f for f in fields]
 
         return self
 
@@ -55,8 +54,8 @@ class Relation:
 
     def substrait_root_rel(self):
         # Handle no selection
-        if len(self.selected_fields) <= 0:
-            self.selected_fields = self.fields
+        if self.current_selection is None:
+            self.current_selection = self.fields
 
         if self.current_limit is not None:
             return self.substrait_root_fetch()
@@ -65,7 +64,7 @@ class Relation:
 
     def substrait_root_fetch(self):
         return RelRoot(
-            names=[field.name for field in self.selected_fields],
+            names=[field.name for field in self.current_selection],
             input=Rel(
                 fetch=FetchRel(
                     input=Rel(
@@ -89,7 +88,7 @@ class Relation:
 
     def substrait_root_read(self):
         return RelRoot(
-            names=[field.name for field in self.selected_fields],
+            names=[field.name for field in self.current_selection],
             input=Rel(
                 read=ReadRel(
                     named_table=ReadRel.NamedTable(names=[self.name]),
