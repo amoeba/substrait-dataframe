@@ -64,10 +64,7 @@ print(json.dumps(json.loads(plan_json), indent=4))
 #                             |-- Read
 #
 
-# Notes:
-#
-# - Uses projects, sorts, and joins for no reason?
-# - Uses function (equal) for the join maybe?
+# Altogether this plan looks very strange and overcomplicated.
 
 # Does this query produce the correct result?
 con.sql(f"CALL from_substrait_json('{plan_json}')")
@@ -103,7 +100,7 @@ con.sql(f"CALL from_substrait_json('{plan_json}')")
 # │ 152 rows (20 shown)                                  8 columns (6 shown) │
 # └──────────────────────────────────────────────────────────────────────────┘
 
-# This looks like a bug in the DuckDB extension.
+# No. This looks like a bug in the DuckDB extension.
 
 
 # Next up, DataFusion
