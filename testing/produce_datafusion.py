@@ -21,7 +21,6 @@ schema = pa.schema(
 )
 ctx.register_parquet("penguins", "./data/penguins.parquet", schema=schema)
 
-
 base_dir = os.path.join("testing", "./queries")
 query_files = os.listdir(base_dir)
 produced_path_prefix = os.path.join("testing", "produced", "datafusion")
