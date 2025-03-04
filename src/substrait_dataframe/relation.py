@@ -1,3 +1,4 @@
+from typing import List, Self
 from substrait.proto import (
     Plan,
     PlanRel,
@@ -10,10 +11,12 @@ from substrait.proto import (
     Version,
 )
 import substrait_dataframe.expression as expr
+from substrait_dataframe.field import Field
 
 
 class Relation:
-    def __init__(self, name, fields):
+
+    def __init__(self, name, fields: List[Field]) -> Self:
         self.name = name
         self.fields = fields
 
@@ -21,27 +24,22 @@ class Relation:
         self.current_filter = None
         self.current_limit = None
 
-    def select(self, fields):
+    def select(self, fields: List[Field]) -> Self:
         self.current_selection = [f for f in fields]
 
         return self
 
-    def filter(self, expression):
+    def filter(self, expression: expr.Expression) -> Self:
         self.current_filter = expression
 
         return self
 
-    def limit(self, count: int):
+    def limit(self, count: int) -> Self:
         self.current_limit = count
 
         return self
 
-    def to_substrait(self):
-        plan = self.substrait_plan()
-
-        return plan
-
-    def substrait_plan(self):
+    def to_substrait(self) -> Plan:
         return Plan(
             relations=self.substrait_relations(),
             extensions=self.substrait_extensions(),
@@ -49,10 +47,10 @@ class Relation:
             version=Version(producer="SubstraitDataFrame"),
         )
 
-    def substrait_relations(self):
+    def substrait_relations(self) -> List[PlanRel]:
         return [PlanRel(root=self.substrait_root_rel())]
 
-    def substrait_root_rel(self):
+    def substrait_root_rel(self) -> RelRoot:
         # Handle no selection
         if self.current_selection is None:
             self.current_selection = self.fields
@@ -62,7 +60,7 @@ class Relation:
         else:
             return self.substrait_root_read()
 
-    def substrait_root_fetch(self):
+    def substrait_root_fetch(self) -> RelRoot:
         return RelRoot(
             names=[field.name for field in self.current_selection],
             input=Rel(
@@ -86,7 +84,7 @@ class Relation:
             ),
         )
 
-    def substrait_root_read(self):
+    def substrait_root_read(self) -> RelRoot:
         return RelRoot(
             names=[field.name for field in self.current_selection],
             input=Rel(
