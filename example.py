@@ -1,7 +1,6 @@
 import duckdb
 
-from substrait_dataframe import DuckDBBackend, DataFrame, Field, Relation
-from substrait_dataframe.expression import Expression
+from substrait_dataframe import DuckDBBackend, DataFrame, Expression, Field, Relation
 
 con = duckdb.connect()
 
