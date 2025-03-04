@@ -1,9 +1,9 @@
 [project]
 name = "substrait-dataframe"
 version = "0.1.0"
-description = "Add your description here"
+description = "Example DataFrame library that produces Substrait"
 readme = "README.md"
-authors = [{ name = "Bryce Mecum", email = "petridish@gmail.com" }]
+authors = [{ name = "Bryce Mecum", email = "brycemecum@gmail.com" }]
 requires-python = ">=3.13"
 dependencies = ["duckdb", "pandas", "pyarrow", "substrait"]
 
