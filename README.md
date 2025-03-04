@@ -1,27 +1,33 @@
 # substrait-dataframe
 
-TODO
+A minimal reference implementation of creating a Python DataFrame library that executes on any engine that speaks [Substrait](https://substrait.io).
+The actual DataFrame library functionality is _very_ limited and this repository is mainly to show the integration with Substrait.
 
 ## Support Functionality
 
-- Selecting fields
-- Simple filtering on one or more fields
+- Select: Selecting one or more fields
+- Filter: Simple filtering on one or more string fields
 - Limit
 
-## Supported Substrait Features
+## Installing
 
-- Reads
-  - [x] Named tables
-  - [ ] Virtual tables
-  - [ ] Files
-- [ ] Expressions
-  - [x] Field references
-  - [ ] Literals
-  - [ ] Functions
-  - [ ] Subqueries
-  - [ ] Window functions
+Assuming a standard Python installation with access to pip:
 
-## Lessons Learned
+```sh
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install .
+```
 
-- Producers like DuckDB and DataFusion produce use Project in a way that works but is technically wrong so it's important when basing a new implementation of an existing one to look carefully at the produced plans you reference.
-- DuckDB's consumer implementation is more flexible in what it accepts whereas DataFusion's is more strict. i.e., DuckDB will successfully run plans that are technically invalid. Running serialized plans through the Substrait validator as you build is a good idea.
+## Testing
+
+Using the above venv, run:
+
+```sh
+python -m pip install .[testing]
+pytest
+```
+
+## Example
+
+There's an example in the root of the repository at `./example.py`.
