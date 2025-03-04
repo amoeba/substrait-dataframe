@@ -55,6 +55,9 @@ class Relation:
         if self.current_selection is None:
             self.current_selection = self.fields
 
+        # To decide on the overal Plan structure, we essentially are just using
+        # pattern matching which isn't very flexible and, as you can see, we
+        # only support two very simple patterns at the moment.
         if self.current_limit is not None:
             return self.substrait_root_fetch()
         else:
