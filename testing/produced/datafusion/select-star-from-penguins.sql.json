@@ -27,12 +27,12 @@
                     }
                   },
                   {
-                    "i32": {
+                    "fp64": {
                       "nullability": "NULLABILITY_NULLABLE"
                     }
                   },
                   {
-                    "i32": {
+                    "fp64": {
                       "nullability": "NULLABILITY_NULLABLE"
                     }
                   },
