@@ -1,5 +1,4 @@
 import duckdb
-
 from substrait_dataframe import DuckDBBackend, DataFrame, Expression, Field, Relation
 
 con = duckdb.connect()
@@ -22,28 +21,18 @@ df = DataFrame(
 )
 
 
-# select * from penguins
-print("*" * 80)
-print("select * from penguins")
-print("*" * 80)
-print(df.execute().to_pandas())
+# Equivalent to 'SELECT * FROM penguins'
+df.execute().to_pandas()
 
-
-# select island, species from penguins
-print("*" * 80)
-print("select island, species from penguins")
-print("*" * 80)
-print(
+# Equivalent to 'SELECT island, species FROM penguins'
+(
     df.select([Field("island", "string"), Field("species", "string")])
     .execute()
     .to_pandas()
 )
 
-# select island from penguins
-print("*" * 80)
-print("select island from penguins")
-print("*" * 80)
-print(
+# Equivalent to 'SELECT island FROM penguins'
+(
     df.select(
         [
             Field("island", "string"),
@@ -53,22 +42,16 @@ print(
     .to_pandas()
 )
 
-# select species from penguins where island = 'Dream'
-print("*" * 80)
-print("select species from penguins where island = 'Dream'")
-print("*" * 80)
-print(
+# Equivalent to 'SELECT species FROM penguins WHERE island = 'Dream'
+(
     df.select([Field("island", "string"), Field("species", "string")])
     .filter(Expression.IsInStringLiteral(Field("island", "string"), "Dream"))
     .execute()
     .to_pandas()
 )
 
-# select species from penguins where island = 'Dream' LIMIT 5
-print("*" * 80)
-print("select species from penguins where island = 'Dream' LIMIT 5")
-print("*" * 80)
-print(
+# Equivalent to 'SELECT species FROM penguins WHERE island = 'Dream' LIMIT 5'
+(
     df.select([Field("island", "string"), Field("species", "string")])
     .filter(Expression.IsInStringLiteral(Field("island", "string"), "Dream"))
     .limit(5)
