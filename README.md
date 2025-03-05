@@ -1,6 +1,6 @@
 # substrait-dataframe
 
-A minimal reference implementation of creating a Python DataFrame library that executes on any engine that speaks [Substrait](https://substrait.io).
+A minimal reference implementation of creating a Python DataFrame library that can be adapted to execute on any engine that speaks [Substrait](https://substrait.io).
 The actual DataFrame library functionality is _very_ limited and this repository is mainly to show the integration with Substrait.
 
 ## Support Functionality
