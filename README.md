@@ -19,6 +19,10 @@ Backends:
 - [x] DuckDB
 - [ ] DataFusion
 
+# Missing Pieces
+
+- Operations aren't composable. i.e., df.select(...).select(...) throws away all but the last .select(...). This applies to filter and limit as well.
+
 ## Installing
 
 Assuming a standard Python installation with access to pip:
