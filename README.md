@@ -2,12 +2,22 @@
 
 A minimal reference implementation of creating a Python DataFrame library that can be adapted to execute on any engine that speaks [Substrait](https://substrait.io).
 The actual DataFrame library functionality is _very_ limited and this repository is mainly to show the integration with Substrait.
+i.e., this package is not intended to be used for analysis and is more for reviewing the code.
 
 ## Support Functionality
+
+The functionality here is _very_ limited:
+
+Substrait Features:
 
 - Select: Selecting one or more fields
 - Filter: Simple filtering on one or more string fields
 - Limit
+
+Backends:
+
+- [x] DuckDB
+- [ ] DataFusion
 
 ## Installing
 
