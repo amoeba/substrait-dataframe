@@ -1,5 +1,4 @@
 import os
-import json
 
 import datafusion
 import pyarrow as pa
@@ -7,7 +6,7 @@ import substrait.json
 from substrait.proto import Plan
 
 ctx = datafusion.SessionContext()
-# DataFusion will convert to dictionary-encoded which makes our job harder
+
 schema = pa.schema(
     [
         pa.field("species", pa.string()),

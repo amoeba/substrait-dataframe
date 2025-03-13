@@ -8,7 +8,12 @@ from substrait_dataframe import DuckDBBackend, DataFrame, Field, Relation
 def connection():
     import duckdb
 
-    return duckdb.connect()
+    con = duckdb.connect()
+    con.sql("INSTALL substrait FROM community;")
+    con.sql("LOAD substrait;")
+    con.sql("CREATE TABLE 'penguins' AS SELECT * FROM 'data/penguins.parquet';")
+
+    return con
 
 
 @pytest.fixture
@@ -31,7 +36,9 @@ def no_backend():
 
 
 @pytest.fixture
-def penguins():
+def penguins(connection):
+    backend = DuckDBBackend(connection)
+
     return DataFrame(
         relation=Relation(
             name="penguins",
@@ -46,5 +53,5 @@ def penguins():
                 Field("year", "i32"),
             ],
         ),
-        backend=DuckDBBackend(duckdb.connect()).enable(),
+        backend=backend,
     )

@@ -7,7 +7,6 @@ from substrait_dataframe.backend import DuckDBBackend
 
 con = duckdb.connect()
 backend = DuckDBBackend(con)
-backend.enable()
 
 base_dir = os.path.join("testing", "queries")
 query_files = os.listdir(base_dir)

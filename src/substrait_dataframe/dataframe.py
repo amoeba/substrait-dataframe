@@ -45,7 +45,7 @@ class DataFrame:
         ...             Field("year", "i32"),
         ...         ],
         ...     ),
-        ...     backend=DuckDBBackend(con).enable(),
+        ...     backend=DuckDBBackend(con)
         ... )
         """
 
