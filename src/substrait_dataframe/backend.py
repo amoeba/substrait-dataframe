@@ -27,13 +27,6 @@ class DuckDBBackend(Backend):
     def sql(self, query_string):
         return self.connection.sql(query_string)
 
-    def enable(self):
-        self.sql("INSTALL substrait FROM community;")
-        self.sql("LOAD substrait;")
-        self.sql("CREATE TABLE 'penguins' AS SELECT * FROM 'data/penguins.parquet';")
-
-        return self
-
     def execute(self, plan: Plan) -> pyarrow.Table:
         return self.from_substrait(proto=plan.SerializeToString()).to_arrow_table()
 
@@ -76,23 +69,6 @@ class DatafusionBackend(Backend):
     def sql(self, query_string):
         # TODO
         return self.connection.sql(query_string)
-
-    def enable(self):
-        schema = pyarrow.schema(
-            [
-                pyarrow.field("species", pyarrow.string()),
-                pyarrow.field("island", pyarrow.string()),
-                pyarrow.field("bill_length_mm", pyarrow.float64()),
-                pyarrow.field("bill_depth_mm", pyarrow.float64()),
-                pyarrow.field("flipper_length_mm", pyarrow.int32()),
-                pyarrow.field("body_mass_g", pyarrow.int32()),
-                pyarrow.field("sex", pyarrow.string()),
-                pyarrow.field("year", pyarrow.int32()),
-            ]
-        )
-        self.ctx.register_parquet("penguins", "./data/penguins.parquet", schema=schema)
-
-        return self
 
     def execute(self, plan: Plan) -> pyarrow.Table:
         substrait_bytes = plan.SerializeToString()

@@ -10,6 +10,9 @@ from substrait_dataframe import (
 )
 
 con = duckdb.connect()
+con.sql("INSTALL substrait FROM community;")
+con.sql("LOAD substrait;")
+con.sql("CREATE TABLE 'penguins' AS SELECT * FROM 'data/penguins.parquet';")
 
 df = DataFrame(
     relation=Relation(
@@ -25,7 +28,7 @@ df = DataFrame(
             Field("year", "i32"),
         ],
     ),
-    backend=DuckDBBackend(con).enable(),
+    backend=DuckDBBackend(con),
 )
 
 
@@ -70,8 +73,24 @@ df.execute().to_pandas()
 # Now we can switch our backend to DataFusion, run the same code, and get
 # identical results.
 import datafusion
+import pyarrow as pa
 
 ctx = datafusion.SessionContext(datafusion.SessionConfig())
+
+schema = pa.schema(
+    [
+        pa.field("species", pa.string()),
+        pa.field("island", pa.string()),
+        pa.field("bill_length_mm", pa.float64()),
+        pa.field("bill_depth_mm", pa.float64()),
+        pa.field("flipper_length_mm", pa.int32()),
+        pa.field("body_mass_g", pa.int32()),
+        pa.field("sex", pa.string()),
+        pa.field("year", pa.int32()),
+    ]
+)
+
+ctx.register_parquet("penguins", "./data/penguins.parquet", schema=schema)
 
 df = DataFrame(
     relation=Relation(
@@ -87,7 +106,7 @@ df = DataFrame(
             Field("year", "i32"),
         ],
     ),
-    backend=DatafusionBackend(ctx).enable(),  # <-- Only this changes from before
+    backend=DatafusionBackend(ctx),  # <-- Only this changes from before
 )
 
 # Equivalent to 'SELECT * FROM penguins'
