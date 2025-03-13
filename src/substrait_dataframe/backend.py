@@ -1,14 +1,31 @@
+from typing import Any, Self
+
+import datafusion
+import pyarrow
+from substrait.proto import Plan
+
+
 class Backend:
+
+    def __init__(self) -> Self:
+        pass
+
+    def sql(self, query: str) -> Any:
+        raise NotImplementedError("Method must be implemented by subclass")
+
+    def enabel(self) -> Any:
+        raise NotImplementedError("Method must be implemented by subclass")
+
+    def execute(self, plan: Plan) -> pyarrow.Table:
+        raise NotImplementedError("Method must be implemented by subclass")
+
+
+class DuckDBBackend(Backend):
     def __init__(self, connection):
         self.connection = connection
 
     def sql(self, query_string):
         return self.connection.sql(query_string)
-
-
-class DuckDBBackend(Backend):
-    def __init__(self, connection):
-        super().__init__(connection)
 
     def enable(self):
         self.sql("INSTALL substrait FROM community;")
@@ -16,6 +33,9 @@ class DuckDBBackend(Backend):
         self.sql("CREATE TABLE 'penguins' AS SELECT * FROM 'data/penguins.parquet';")
 
         return self
+
+    def execute(self, plan: Plan) -> pyarrow.Table:
+        return self.from_substrait(proto=plan.SerializeToString()).to_arrow_table()
 
     def get_substrait(self, sql):
         """
@@ -47,3 +67,38 @@ class DuckDBBackend(Backend):
         """
 
         return self.sql(f"CALL from_substrait_json('{json}'::VARCHAR);")
+
+
+class DatafusionBackend(Backend):
+    def __init__(self, session):
+        self.ctx = session
+
+    def sql(self, query_string):
+        # TODO
+        return self.connection.sql(query_string)
+
+    def enable(self):
+        schema = pyarrow.schema(
+            [
+                pyarrow.field("species", pyarrow.string()),
+                pyarrow.field("island", pyarrow.string()),
+                pyarrow.field("bill_length_mm", pyarrow.float64()),
+                pyarrow.field("bill_depth_mm", pyarrow.float64()),
+                pyarrow.field("flipper_length_mm", pyarrow.int32()),
+                pyarrow.field("body_mass_g", pyarrow.int32()),
+                pyarrow.field("sex", pyarrow.string()),
+                pyarrow.field("year", pyarrow.int32()),
+            ]
+        )
+        self.ctx.register_parquet("penguins", "./data/penguins.parquet", schema=schema)
+
+        return self
+
+    def execute(self, plan: Plan) -> pyarrow.Table:
+        substrait_bytes = plan.SerializeToString()
+        substrait_plan = datafusion.substrait.Serde.deserialize_bytes(substrait_bytes)
+        df_logical_plan = datafusion.substrait.Consumer.from_substrait_plan(
+            self.ctx, substrait_plan
+        )
+
+        return self.ctx.create_dataframe_from_logical_plan(df_logical_plan)

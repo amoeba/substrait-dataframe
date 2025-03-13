@@ -31,7 +31,7 @@ Assuming a standard Python installation with access to pip:
 ```sh
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install .
+python -m pip install .[all] # To enable DuckDB and DataFusion
 ```
 
 ## Testing

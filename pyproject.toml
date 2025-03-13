@@ -5,9 +5,12 @@ description = "Example DataFrame library that produces Substrait"
 readme = "README.md"
 authors = [{ name = "Bryce Mecum", email = "brycemecum@gmail.com" }]
 requires-python = ">=3.13"
-dependencies = ["duckdb", "pandas", "pyarrow", "substrait"]
+dependencies = ["pandas", "pyarrow", "substrait"]
 
 [project.optional-dependencies]
+duckdb = [ "duckdb"]
+datafusion = ["datafusion"]
+all = [ "duckdb", "datafusion" ]
 testing = [
   "datafusion",
   "pytest",

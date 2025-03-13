@@ -145,13 +145,17 @@ class DataFrame:
             raise Exception("Backend not set.")
 
         plan = self.to_substrait()
-        serialized_plan = plan.SerializeToString()
 
-        return self.backend.from_substrait(proto=serialized_plan).to_arrow_table()
+        return self.backend.execute(plan)
 
     def to_substrait(self) -> Plan:
         """
         Convert the current DataFrame to Substrait Plan object.
+
+        Returns
+        -------
+        Plan
+            A Plan object representing the current DataFrame.
 
         Examples:
         ---------
