@@ -29,6 +29,7 @@
                         "island",
                         "bill_length_mm",
                         "bill_depth_mm",
+                        "flipper_length_mm",
                         "body_mass_g",
                         "sex",
                         "year"
@@ -52,6 +53,11 @@
                           },
                           {
                             "fp64": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          },
+                          {
+                            "i32": {
                               "nullability": "NULLABILITY_NULLABLE"
                             }
                           },
