@@ -17,7 +17,7 @@ Substrait Features:
 Backends:
 
 - [x] DuckDB
-- [ ] DataFusion
+- [x] DataFusion
 
 # Missing Pieces
 

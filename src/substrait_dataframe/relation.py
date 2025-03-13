@@ -2,6 +2,7 @@ from typing import List, Self
 from substrait.proto import (
     Plan,
     PlanRel,
+    Expression,
     FetchRel,
     RelRoot,
     ReadRel,
@@ -78,6 +79,7 @@ class Relation:
                                     nullability=Type.Nullability.NULLABILITY_REQUIRED,
                                 ),
                             ),
+                            projection=self.substrait_project(),
                             filter=self.substrait_filter(),
                         ),
                     ),
@@ -100,6 +102,7 @@ class Relation:
                             nullability=Type.Nullability.NULLABILITY_REQUIRED,
                         ),
                     ),
+                    projection=self.substrait_project(),
                     filter=self.substrait_filter(),
                 ),
             ),
@@ -110,6 +113,19 @@ class Relation:
             return None
 
         return self.current_filter.to_substrait(self.fields)
+
+    def substrait_project(self):
+        if self.current_selection is None:
+            return None
+
+        return Expression.MaskExpression(
+            select=Expression.MaskExpression.StructSelect(
+                struct_items=[
+                    Expression.MaskExpression.StructItem(field=self.fields.index(field))
+                    for field in self.current_selection
+                ],
+            )
+        )
 
     def substrait_extensions(self):
         if self.current_filter is None:
