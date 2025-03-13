@@ -119,30 +119,30 @@ df.execute().to_pandas()
     .to_pandas()
 )
 
-# Equivalent to 'SELECT island FROM penguins'
-(
-    df.select(
-        [
-            Field("island", "string"),
-        ]
-    )
-    .execute()
-    .to_pandas()
-)
+# # Equivalent to 'SELECT island FROM penguins'
+# (
+#     df.select(
+#         [
+#             Field("island", "string"),
+#         ]
+#     )
+#     .execute()
+#     .to_pandas()
+# )
 
-# Equivalent to 'SELECT species FROM penguins WHERE island = 'Dream'
-(
-    df.select([Field("island", "string"), Field("species", "string")])
-    .filter(Expression.IsInStringLiteral(Field("island", "string"), "Dream"))
-    .execute()
-    .to_pandas()
-)
+# # Equivalent to 'SELECT species FROM penguins WHERE island = 'Dream'
+# (
+#     df.select([Field("island", "string"), Field("species", "string")])
+#     .filter(Expression.IsInStringLiteral(Field("island", "string"), "Dream"))
+#     .execute()
+#     .to_pandas()
+# )
 
-# Equivalent to 'SELECT species FROM penguins WHERE island = 'Dream' LIMIT 5'
-(
-    df.select([Field("island", "string"), Field("species", "string")])
-    .filter(Expression.IsInStringLiteral(Field("island", "string"), "Dream"))
-    .limit(5)
-    .execute()
-    .to_pandas()
-)
+# # Equivalent to 'SELECT species FROM penguins WHERE island = 'Dream' LIMIT 5'
+# (
+#     df.select([Field("island", "string"), Field("species", "string")])
+#     .filter(Expression.IsInStringLiteral(Field("island", "string"), "Dream"))
+#     .limit(5)
+#     .execute()
+#     .to_pandas()
+# )

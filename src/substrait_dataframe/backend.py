@@ -13,9 +13,6 @@ class Backend:
     def sql(self, query: str) -> Any:
         raise NotImplementedError("Method must be implemented by subclass")
 
-    def enabel(self) -> Any:
-        raise NotImplementedError("Method must be implemented by subclass")
-
     def execute(self, plan: Plan) -> pyarrow.Table:
         raise NotImplementedError("Method must be implemented by subclass")
 
