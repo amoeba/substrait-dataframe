@@ -6,6 +6,10 @@ import duckdb
 from substrait_dataframe.backend import DuckDBBackend
 
 con = duckdb.connect()
+con.sql("INSTALL substrait FROM community;")
+con.sql("LOAD substrait;")
+con.sql("CREATE TABLE 'penguins' AS SELECT * FROM 'data/penguins.parquet';")
+
 backend = DuckDBBackend(con)
 
 base_dir = os.path.join("testing", "queries")

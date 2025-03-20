@@ -195,6 +195,8 @@
     }
   ],
   "version": {
+    "minorNumber": 57,
+    "patchNumber": 1,
     "producer": "SubstraitDataFrame"
   }
 }
