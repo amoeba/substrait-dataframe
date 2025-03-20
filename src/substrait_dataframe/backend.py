@@ -6,7 +6,6 @@ from substrait.proto import Plan
 
 
 class Backend:
-
     def __init__(self) -> Self:
         pass
 
