@@ -5,7 +5,7 @@ from conftest import skip_if_missing
 
 
 @skip_if_missing("duckdb")
-def test_dataframe_with_no_operations_fetches_all(penguins_duckdb):
+def test_duckdb_dataframe_with_no_operations_fetches_all(penguins_duckdb):
     result = penguins_duckdb.execute()
 
     assert type(result) == pyarrow.Table
@@ -14,7 +14,7 @@ def test_dataframe_with_no_operations_fetches_all(penguins_duckdb):
 
 
 @skip_if_missing("duckdb")
-def test_filter(penguins_duckdb):
+def test_duckdb_filter(penguins_duckdb):
     result = penguins_duckdb.filter(
         Expression.IsInStringLiteral(Field("island", "string"), "Dream")
     ).execute()
@@ -26,7 +26,7 @@ def test_filter(penguins_duckdb):
 
 
 @skip_if_missing("duckdb")
-def test_limit(penguins_duckdb):
+def test_duckdb_limit(penguins_duckdb):
     result = penguins_duckdb.limit(10).execute()
 
     assert type(result) == pyarrow.Table
@@ -35,7 +35,7 @@ def test_limit(penguins_duckdb):
 
 
 @skip_if_missing("duckdb")
-def test_select(penguins_duckdb):
+def test_duckdb_select(penguins_duckdb):
     result = penguins_duckdb.select([Field("island", "string")]).execute()
 
     assert type(result) == pyarrow.Table
@@ -45,7 +45,7 @@ def test_select(penguins_duckdb):
 
 
 @skip_if_missing("datafusion")
-def test_dataframe_with_no_operations_fetches_all(penguins_datafusion):
+def test_datafusion_dataframe_with_no_operations_fetches_all(penguins_datafusion):
     result = penguins_datafusion.execute()
 
     assert type(result) == pyarrow.Table
@@ -54,7 +54,7 @@ def test_dataframe_with_no_operations_fetches_all(penguins_datafusion):
 
 
 @skip_if_missing("datafusion")
-def test_filter(penguins_datafusion):
+def test_datafusion_filter(penguins_datafusion):
     result = penguins_datafusion.filter(
         Expression.IsInStringLiteral(Field("island", "string"), "Dream")
     ).execute()
@@ -66,7 +66,7 @@ def test_filter(penguins_datafusion):
 
 
 @skip_if_missing("datafusion")
-def test_limit(penguins_datafusion):
+def test_datafusion_limit(penguins_datafusion):
     result = penguins_datafusion.limit(10).execute()
 
     assert type(result) == pyarrow.Table
@@ -75,7 +75,7 @@ def test_limit(penguins_datafusion):
 
 
 @skip_if_missing("datafusion")
-def test_select(penguins_datafusion):
+def test_datafusion_select(penguins_datafusion):
     result = penguins_datafusion.select([Field("island", "string")]).execute()
 
     assert type(result) == pyarrow.Table
