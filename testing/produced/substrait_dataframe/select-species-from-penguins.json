@@ -3,81 +3,76 @@
     {
       "root": {
         "input": {
-          "fetch": {
-            "input": {
-              "read": {
-                "baseSchema": {
-                  "names": [
-                    "species",
-                    "island",
-                    "bill_length_mm",
-                    "bill_depth_mm",
-                    "flipper_length_mm",
-                    "body_mass_g",
-                    "sex",
-                    "year"
-                  ],
-                  "struct": {
-                    "types": [
-                      {
-                        "string": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "string": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "fp64": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "fp64": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "i32": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "i32": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "string": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "i32": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      }
-                    ],
-                    "nullability": "NULLABILITY_REQUIRED"
+          "read": {
+            "baseSchema": {
+              "names": [
+                "species",
+                "island",
+                "bill_length_mm",
+                "bill_depth_mm",
+                "flipper_length_mm",
+                "body_mass_g",
+                "sex",
+                "year"
+              ],
+              "struct": {
+                "types": [
+                  {
+                    "string": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "string": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "fp64": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "fp64": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "i32": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "i32": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "string": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "i32": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
                   }
-                },
-                "projection": {
-                  "select": {
-                    "structItems": [
-                      {}
-                    ]
-                  }
-                },
-                "namedTable": {
-                  "names": [
-                    "penguins"
-                  ]
-                }
+                ],
+                "nullability": "NULLABILITY_REQUIRED"
               }
             },
-            "count": "10"
+            "projection": {
+              "select": {
+                "structItems": [
+                  {}
+                ]
+              }
+            },
+            "namedTable": {
+              "names": [
+                "penguins"
+              ]
+            }
           }
         },
         "names": [

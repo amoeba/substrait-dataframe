@@ -36,155 +36,150 @@
     {
       "root": {
         "input": {
-          "fetch": {
-            "input": {
-              "read": {
-                "baseSchema": {
-                  "names": [
-                    "species",
-                    "island",
-                    "bill_length_mm",
-                    "bill_depth_mm",
-                    "flipper_length_mm",
-                    "body_mass_g",
-                    "sex",
-                    "year"
-                  ],
-                  "struct": {
-                    "types": [
-                      {
-                        "string": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "string": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "fp64": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "fp64": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "i32": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "i32": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "string": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "i32": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      }
-                    ],
+          "read": {
+            "baseSchema": {
+              "names": [
+                "species",
+                "island",
+                "bill_length_mm",
+                "bill_depth_mm",
+                "flipper_length_mm",
+                "body_mass_g",
+                "sex",
+                "year"
+              ],
+              "struct": {
+                "types": [
+                  {
+                    "string": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "string": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "fp64": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "fp64": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "i32": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "i32": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "string": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "i32": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  }
+                ],
+                "nullability": "NULLABILITY_REQUIRED"
+              }
+            },
+            "filter": {
+              "scalarFunction": {
+                "functionReference": 3,
+                "outputType": {
+                  "bool": {
                     "nullability": "NULLABILITY_REQUIRED"
                   }
                 },
-                "filter": {
-                  "scalarFunction": {
-                    "functionReference": 3,
-                    "outputType": {
-                      "bool": {
-                        "nullability": "NULLABILITY_REQUIRED"
-                      }
-                    },
-                    "arguments": [
-                      {
-                        "value": {
-                          "scalarFunction": {
-                            "functionReference": 1,
-                            "outputType": {
-                              "string": {
-                                "nullability": "NULLABILITY_REQUIRED"
-                              }
-                            },
-                            "arguments": [
-                              {
-                                "value": {
-                                  "selection": {
-                                    "directReference": {
-                                      "structField": {
-                                        "field": 1
-                                      }
-                                    },
-                                    "rootReference": {}
-                                  }
-                                }
-                              },
-                              {
-                                "value": {
-                                  "literal": {
-                                    "string": "Dream"
-                                  }
-                                }
-                              }
-                            ]
+                "arguments": [
+                  {
+                    "value": {
+                      "scalarFunction": {
+                        "functionReference": 1,
+                        "outputType": {
+                          "string": {
+                            "nullability": "NULLABILITY_REQUIRED"
                           }
-                        }
-                      },
-                      {
-                        "value": {
-                          "scalarFunction": {
-                            "functionReference": 2,
-                            "outputType": {
-                              "string": {
-                                "nullability": "NULLABILITY_REQUIRED"
-                              }
-                            },
-                            "arguments": [
-                              {
-                                "value": {
-                                  "selection": {
-                                    "directReference": {
-                                      "structField": {
-                                        "field": 1
-                                      }
-                                    },
-                                    "rootReference": {}
+                        },
+                        "arguments": [
+                          {
+                            "value": {
+                              "selection": {
+                                "directReference": {
+                                  "structField": {
+                                    "field": 1
                                   }
-                                }
+                                },
+                                "rootReference": {}
                               }
-                            ]
+                            }
+                          },
+                          {
+                            "value": {
+                              "literal": {
+                                "string": "Dream"
+                              }
+                            }
                           }
-                        }
+                        ]
                       }
-                    ]
+                    }
+                  },
+                  {
+                    "value": {
+                      "scalarFunction": {
+                        "functionReference": 2,
+                        "outputType": {
+                          "string": {
+                            "nullability": "NULLABILITY_REQUIRED"
+                          }
+                        },
+                        "arguments": [
+                          {
+                            "value": {
+                              "selection": {
+                                "directReference": {
+                                  "structField": {
+                                    "field": 1
+                                  }
+                                },
+                                "rootReference": {}
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
                   }
-                },
-                "projection": {
-                  "select": {
-                    "structItems": [
-                      {
-                        "field": 1
-                      },
-                      {}
-                    ]
-                  }
-                },
-                "namedTable": {
-                  "names": [
-                    "penguins"
-                  ]
-                }
+                ]
               }
             },
-            "count": "10"
+            "projection": {
+              "select": {
+                "structItems": [
+                  {
+                    "field": 1
+                  },
+                  {}
+                ]
+              }
+            },
+            "namedTable": {
+              "names": [
+                "penguins"
+              ]
+            }
           }
         },
         "names": [
