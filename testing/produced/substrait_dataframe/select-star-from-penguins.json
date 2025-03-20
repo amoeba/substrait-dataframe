@@ -1,0 +1,115 @@
+{
+  "relations": [
+    {
+      "root": {
+        "input": {
+          "read": {
+            "baseSchema": {
+              "names": [
+                "species",
+                "island",
+                "bill_length_mm",
+                "bill_depth_mm",
+                "flipper_length_mm",
+                "body_mass_g",
+                "sex",
+                "year"
+              ],
+              "struct": {
+                "types": [
+                  {
+                    "string": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "string": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "fp64": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "fp64": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "i32": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "i32": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "string": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  },
+                  {
+                    "i32": {
+                      "nullability": "NULLABILITY_NULLABLE"
+                    }
+                  }
+                ],
+                "nullability": "NULLABILITY_REQUIRED"
+              }
+            },
+            "projection": {
+              "select": {
+                "structItems": [
+                  {},
+                  {
+                    "field": 1
+                  },
+                  {
+                    "field": 2
+                  },
+                  {
+                    "field": 3
+                  },
+                  {
+                    "field": 4
+                  },
+                  {
+                    "field": 5
+                  },
+                  {
+                    "field": 6
+                  },
+                  {
+                    "field": 7
+                  }
+                ]
+              }
+            },
+            "namedTable": {
+              "names": [
+                "penguins"
+              ]
+            }
+          }
+        },
+        "names": [
+          "species",
+          "island",
+          "bill_length_mm",
+          "bill_depth_mm",
+          "flipper_length_mm",
+          "body_mass_g",
+          "sex",
+          "year"
+        ]
+      }
+    }
+  ],
+  "version": {
+    "producer": "SubstraitDataFrame"
+  }
+}
