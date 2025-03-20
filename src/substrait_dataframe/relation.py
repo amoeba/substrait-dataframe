@@ -45,7 +45,9 @@ class Relation:
             relations=self.substrait_relations(),
             extensions=self.substrait_extensions(),
             extension_uris=self.substrait_extension_uris(),
-            version=Version(minor_number=67, producer="SubstraitDataFrame"),
+            version=Version(
+                minor_number=57, patch_number=1, producer="SubstraitDataFrame"
+            ),
         )
 
     def substrait_relations(self) -> List[PlanRel]:
