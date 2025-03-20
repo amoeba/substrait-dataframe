@@ -74,4 +74,6 @@ class DatafusionBackend(Backend):
             self.ctx, substrait_plan
         )
 
-        return self.ctx.create_dataframe_from_logical_plan(df_logical_plan)
+        return self.ctx.create_dataframe_from_logical_plan(
+            df_logical_plan
+        ).to_arrow_table()
