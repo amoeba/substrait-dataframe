@@ -19,7 +19,7 @@ Backends:
 - [x] DuckDB
 - [x] DataFusion
 
-# Missing Pieces
+## Missing Pieces
 
 - Operations aren't composable. i.e., df.select(...).select(...) throws away all but the last .select(...). This applies to filter and limit as well.
 - Ergonomics. The code is designed mainly to show the larger picture and a lot of quality of life improvements could be made to make the code more concise and user-friendly.
