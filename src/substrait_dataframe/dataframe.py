@@ -74,9 +74,9 @@ class DataFrame:
         >>> expr = Expression.IsInStringLiteral(Field("island", "string"), "Dream")
         """
 
-        self.relation = self.relation.filter(expression)
-
-        return self
+        return DataFrame(
+            relation=self.relation.filter(expression), backend=self.backend
+        )
 
     def limit(self, count: int) -> Self:
         """
@@ -99,9 +99,7 @@ class DataFrame:
 
         assert count > 0
 
-        self.relation = self.relation.limit(count)
-
-        return self
+        return DataFrame(relation=self.relation.limit(count), backend=self.backend)
 
     def select(self, fields: List[Field]) -> Self:
         """
@@ -123,9 +121,7 @@ class DataFrame:
         df.select([Field("island", "string"])
         """
 
-        self.relation = self.relation.select(fields)
-
-        return self
+        return DataFrame(relation=self.relation.select(fields), backend=self.backend)
 
     def execute(self) -> pyarrow.Table:
         """

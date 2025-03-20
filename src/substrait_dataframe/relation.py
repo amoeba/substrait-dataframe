@@ -17,29 +17,42 @@ from substrait_dataframe.field import Field
 
 class Relation:
 
-    def __init__(self, name, fields: List[Field]) -> Self:
+    def __init__(
+        self, name, fields: List[Field], selection=None, filter=None, limit=None
+    ) -> Self:
         self.name = name
         self.fields = fields
 
-        self.current_selection = None
-        self.current_filter = None
-        self.current_limit = None
+        self.current_selection = selection
+        self.current_filter = filter
+        self.current_limit = limit
 
     def select(self, fields: List[Field]) -> Self:
-        self.current_selection = [f for f in fields]
-
-        return self
+        return Relation(
+            name=self.name,
+            fields=self.fields,
+            selection=[f for f in fields],
+            filter=self.current_filter,
+            limit=self.current_limit,
+        )
 
     def filter(self, expression: expr.Expression) -> Self:
-        self.current_filter = expression
-
-        return self
+        return Relation(
+            name=self.name,
+            fields=self.fields,
+            selection=self.current_selection,
+            filter=expression,
+            limit=self.current_limit,
+        )
 
     def limit(self, count: int) -> Self:
-        self.current_limit = count
-
-        return self
-
+        return Relation(
+            name=self.name,
+            fields=self.fields,
+            selection=self.current_selection,
+            filter=self.current_filter,
+            limit=count,
+        )
     def to_substrait(self) -> Plan:
         return Plan(
             relations=self.substrait_relations(),
