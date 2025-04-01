@@ -70,78 +70,31 @@ class Relation:
         return [PlanRel(root=self.substrait_root_rel())]
 
     def substrait_root_rel(self) -> RelRoot:
-        # We support a few variants of plan shapes and use pattern matching to
-        # choose:
+        """
+        Construct our root relation by building up from the bottom. Every plan
+        starts with a ReadRel and we iteratively wrap that Relation in others
+        as appropriate.
+        """
+        root = self.substrait_read()
 
-        # Read (select * from foo)
-        #
-        # Project <- Read (select bar from foo)
-        # Filter <- Read (select * from foo where baz)
-        # Fetch <- Read (select * from foo limit n)
-        #
-        # Project <- Fetch <- Read
-        # Project <- Filter <- Read
-        #
-        # Project <- Fetch <- Filter <- Read
-
-        # Start with a root at the base
-        root = self.wip_read()
-
-        # If there's a filter, we add it
         if self.current_filter is not None:
-            root = self.wip_filter(input=root)
+            root = self.substrait_filter(input=root)
 
-        # If there's a limit, we add it
         if self.current_limit is not None:
-            root = self.wip_fetch(input=root)
+            root = self.substrait_fetch(input=root)
 
-        # If there's a select, we add it
+        # If there's a select, we add a projection, otherwise just select
+        # everything without using a ProjectRel
         if self.current_selection is not None:
-            root = self.wip_project(input=root)
-
-        # # TODO: Can remove this I think
-        # # # Handle no selection
-        # if self.current_selection is None:
-        #     self.current_selection = self.fields
-
-        # # To decide on the overal Plan structure, we essentially are just using
-        # # pattern matching which isn't very flexible and, as you can see, we
-        # # only support two very simple patterns at the moment.
-        # if self.current_limit is not None:
-        #     return self.substrait_root_fetch(input=self.wip_read())
-        # else:
-        #     return self.substrait_root_read()
-
-        if self.current_selection is None:
+            root = self.substrait_project(input=root)
+        else:
             self.current_selection = self.fields
 
         root_names = [field.name for field in self.current_selection]
 
         return RelRoot(names=root_names, input=root)
 
-    def substrait_root_fetch(self, input) -> RelRoot:
-        return RelRoot(
-            names=[field.name for field in self.current_selection],
-            input=self.wip_fetch(input),
-        )
-
-    def substrait_root_read(self) -> RelRoot:
-        return RelRoot(
-            names=[field.name for field in self.current_selection],
-            input=self.wip_read(),
-        )
-
-    def wip_fetch(self, input: Rel) -> Rel:
-        return Rel(
-            fetch=FetchRel(
-                input=input,
-                offset=0,
-                count=self.current_limit,
-            )
-        )
-
-    # This is always a terminal node
-    def wip_read(self) -> Rel:
+    def substrait_read(self) -> Rel:
         return Rel(
             read=ReadRel(
                 named_table=ReadRel.NamedTable(names=[self.name]),
@@ -155,10 +108,23 @@ class Relation:
             ),
         )
 
-    def wip_filter(self, input: Rel) -> Rel:
-        return Rel(filter=FilterRel())
+    def substrait_filter(self, input: Rel) -> Rel:
+        return Rel(
+            filter=FilterRel(
+                input=input, condition=self.current_filter.to_substrait(self.fields)
+            )
+        )
 
-    def wip_project(self, input: Rel) -> Rel:
+    def substrait_fetch(self, input: Rel) -> Rel:
+        return Rel(
+            fetch=FetchRel(
+                input=input,
+                offset=0,
+                count=self.current_limit,
+            )
+        )
+
+    def substrait_project(self, input: Rel) -> Rel:
         return Rel(
             project=ProjectRel(
                 common=RelCommon(
@@ -181,25 +147,6 @@ class Relation:
                             root_reference=Expression.FieldReference.RootReference(),
                         )
                     )
-                    for field in self.current_selection
-                ],
-            )
-        )
-
-    def substrait_filter(self):
-        if self.current_filter is None:
-            return None
-
-        return self.current_filter.to_substrait(self.fields)
-
-    def substrait_project(self):
-        if self.current_selection is None:
-            return None
-
-        return Expression.MaskExpression(
-            select=Expression.MaskExpression.StructSelect(
-                struct_items=[
-                    Expression.MaskExpression.StructItem(field=self.fields.index(field))
                     for field in self.current_selection
                 ],
             )
