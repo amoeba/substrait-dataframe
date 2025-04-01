@@ -61,34 +61,6 @@
                 "nullability": "NULLABILITY_REQUIRED"
               }
             },
-            "projection": {
-              "select": {
-                "structItems": [
-                  {},
-                  {
-                    "field": 1
-                  },
-                  {
-                    "field": 2
-                  },
-                  {
-                    "field": 3
-                  },
-                  {
-                    "field": 4
-                  },
-                  {
-                    "field": 5
-                  },
-                  {
-                    "field": 6
-                  },
-                  {
-                    "field": 7
-                  }
-                ]
-              }
-            },
             "namedTable": {
               "names": [
                 "penguins"

@@ -3,102 +3,172 @@
     {
       "root": {
         "input": {
-          "fetch": {
-            "input": {
-              "read": {
-                "baseSchema": {
-                  "names": [
-                    "species",
-                    "island",
-                    "bill_length_mm",
-                    "bill_depth_mm",
-                    "flipper_length_mm",
-                    "body_mass_g",
-                    "sex",
-                    "year"
-                  ],
-                  "struct": {
-                    "types": [
-                      {
-                        "string": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "string": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "fp64": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "fp64": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "i32": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "i32": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "string": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      },
-                      {
-                        "i32": {
-                          "nullability": "NULLABILITY_NULLABLE"
-                        }
-                      }
-                    ],
-                    "nullability": "NULLABILITY_REQUIRED"
-                  }
-                },
-                "projection": {
-                  "select": {
-                    "structItems": [
-                      {},
-                      {
-                        "field": 1
-                      },
-                      {
-                        "field": 2
-                      },
-                      {
-                        "field": 3
-                      },
-                      {
-                        "field": 4
-                      },
-                      {
-                        "field": 5
-                      },
-                      {
-                        "field": 6
-                      },
-                      {
-                        "field": 7
-                      }
-                    ]
-                  }
-                },
-                "namedTable": {
-                  "names": [
-                    "penguins"
-                  ]
-                }
+          "project": {
+            "common": {
+              "emit": {
+                "outputMapping": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ]
               }
             },
-            "count": "10"
+            "input": {
+              "fetch": {
+                "input": {
+                  "read": {
+                    "baseSchema": {
+                      "names": [
+                        "species",
+                        "island",
+                        "bill_length_mm",
+                        "bill_depth_mm",
+                        "flipper_length_mm",
+                        "body_mass_g",
+                        "sex",
+                        "year"
+                      ],
+                      "struct": {
+                        "types": [
+                          {
+                            "string": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          },
+                          {
+                            "string": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          },
+                          {
+                            "fp64": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          },
+                          {
+                            "fp64": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          },
+                          {
+                            "i32": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          },
+                          {
+                            "i32": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          },
+                          {
+                            "string": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          },
+                          {
+                            "i32": {
+                              "nullability": "NULLABILITY_NULLABLE"
+                            }
+                          }
+                        ],
+                        "nullability": "NULLABILITY_REQUIRED"
+                      }
+                    },
+                    "namedTable": {
+                      "names": [
+                        "penguins"
+                      ]
+                    }
+                  }
+                },
+                "count": "10"
+              }
+            },
+            "expressions": [
+              {
+                "selection": {
+                  "directReference": {
+                    "structField": {}
+                  },
+                  "rootReference": {}
+                }
+              },
+              {
+                "selection": {
+                  "directReference": {
+                    "structField": {
+                      "field": 1
+                    }
+                  },
+                  "rootReference": {}
+                }
+              },
+              {
+                "selection": {
+                  "directReference": {
+                    "structField": {
+                      "field": 2
+                    }
+                  },
+                  "rootReference": {}
+                }
+              },
+              {
+                "selection": {
+                  "directReference": {
+                    "structField": {
+                      "field": 3
+                    }
+                  },
+                  "rootReference": {}
+                }
+              },
+              {
+                "selection": {
+                  "directReference": {
+                    "structField": {
+                      "field": 4
+                    }
+                  },
+                  "rootReference": {}
+                }
+              },
+              {
+                "selection": {
+                  "directReference": {
+                    "structField": {
+                      "field": 5
+                    }
+                  },
+                  "rootReference": {}
+                }
+              },
+              {
+                "selection": {
+                  "directReference": {
+                    "structField": {
+                      "field": 6
+                    }
+                  },
+                  "rootReference": {}
+                }
+              },
+              {
+                "selection": {
+                  "directReference": {
+                    "structField": {
+                      "field": 7
+                    }
+                  },
+                  "rootReference": {}
+                }
+              }
+            ]
           }
         },
         "names": [
