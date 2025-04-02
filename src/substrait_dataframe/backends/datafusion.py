@@ -2,7 +2,7 @@ import datafusion
 import pyarrow
 from substrait.proto import Plan
 
-from substrait_dataframe.backend import Backend
+from substrait_dataframe.backends import Backend
 
 
 class DatafusionBackend(Backend):

@@ -3,7 +3,7 @@ from typing import List, Self
 import pyarrow
 from substrait.proto import Plan
 
-from substrait_dataframe.backend import Backend
+from substrait_dataframe.backends import Backend
 from substrait_dataframe.expression import Expression
 from substrait_dataframe.field import Field
 from substrait_dataframe.relation import Relation

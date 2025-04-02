@@ -1,8 +1,13 @@
 import importlib
 import pytest
 
-from substrait_dataframe import DuckDBBackend, DataFrame, Field, Relation
-from substrait_dataframe.backend import DatafusionBackend
+from substrait_dataframe import (
+    DuckDBBackend,
+    DatafusionBackend,
+    DataFrame,
+    Field,
+    Relation,
+)
 
 
 def skip_if_missing(name: str):
