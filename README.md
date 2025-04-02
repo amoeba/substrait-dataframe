@@ -2,7 +2,7 @@
 
 A barebones reference implementation Python DataFrame library that speaks [Substrait](https://substrait.io).
 
-This is not intended to be used for any real work or to be built on top of and is being share in case it helps anyone evaluating [Substrait](https://substrait.io) get any idea for that they can look like.
+This is not intended to be used for any real work or to be built on top of. I am sharing it in case it helps anyone who might be evaluating [Substrait](https://substrait.io) get any idea for what building on top of it might look like.
 
 ## What This Can Do
 
@@ -23,9 +23,14 @@ Supported DataFrame Operations:
 
 This list isn't comprehensive but here are some things you might notice this can't do:
 
-- Operations aren't composable. i.e., df.select(...).select(...) throws away all but the last .select(...). This applies to filter and limit as well.
-- Ergonomics. The code is designed mainly to show the larger picture and a lot of quality of life improvements could be made to make the code more concise and user-friendly.
-- Send a query to an external database, using [ADBC](https://arrow.apache.org/adbc/current/index.html) for example.
+- Operations aren't composable. i.e., `df.select(...).select(...)` throws away all but the last `.select(...)`. This applies to filter and limit as well.
+- No ergonomics. The code is designed mainly to show the larger picture and a lot of quality of life improvements could be made to make the code more concise and user-friendly.
+- Break outside of Python. This would be much better if it could send a query to an external database using [ADBC](https://arrow.apache.org/adbc/current/index.html) for example.
+
+## Related Work
+
+- [tokoko/subframe](https://github.com/tokoko/subframe): A much more advanced and feature-full version of what I've done here. DataFrame API that speaks [Substrait](https://substrait.io) over [ADBC](https://arrow.apache.org/adbc/current/index.html). I highly recommend taking a look at this.
+- [sqlframe](https://github.com/eakmanrq/sqlframe): Provides a PySpark-like DataFrame API that can speak to Spark and non-Spark databases by translating PySpark to SQL.
 
 ## Installing
 
