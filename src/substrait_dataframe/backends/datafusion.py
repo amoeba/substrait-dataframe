@@ -10,8 +10,7 @@ class DatafusionBackend(Backend):
         self.ctx = session
 
     def sql(self, query_string):
-        # TODO: This code doesn't work. Implement it so it does.
-        return self.connection.sql(query_string)
+        return self.ctx.sql(query_string)
 
     def execute(self, plan: Plan) -> pyarrow.Table:
         substrait_bytes = plan.SerializeToString()
