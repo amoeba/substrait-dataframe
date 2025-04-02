@@ -26,7 +26,7 @@ class Field:
         >>> r1 = Relation(name="penguins", fields=[f1, f2])
         """
         self.name = name
-        self.type = self.lookup_type(type)
+        self.type = self._lookup_type(type)
 
     def __eq__(self, other):
         if self.name != other.name:
@@ -40,7 +40,7 @@ class Field:
     def __repr__(self):
         return f"Field({self.name})"
 
-    def lookup_type(self, type_shortname, nullable=False):
+    def _lookup_type(self, type_shortname, nullable=False):
         if nullable:
             nullability = Type.Nullability.NULLABILITY_REQUIRED
         else:
