@@ -16,7 +16,7 @@ class DataFrame:
         Create a DataFrame for the given Relation in the given Backend.
 
         Parameters
-        -----------
+        ----------
         relation: Relation
             A specification of a target Relation that should exist in the
             Backend.
