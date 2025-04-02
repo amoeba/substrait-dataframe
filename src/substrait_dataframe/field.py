@@ -6,7 +6,7 @@ from substrait.proto import (
 class Field:
     def __init__(self, name, type):
         """
-        Create a new Field.
+        Create a new Field. Fields are used to define the schema of a Relation.
 
         Parameters
         ----------

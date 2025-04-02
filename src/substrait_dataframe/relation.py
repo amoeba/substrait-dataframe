@@ -23,6 +23,35 @@ class Relation:
     def __init__(
         self, name, fields: List[Field], selection=None, filter=None, limit=None
     ) -> Self:
+        """
+        Create a new Relation. Relations are used by DataFrames so they can talk
+        to a Backend.
+
+        Parameters
+        ----------
+        name: str
+            The name of the relation.
+
+        fields: List[Field]
+            The fields of the relation.
+
+        selection: List[Field], optional
+
+        filter: expr.Expression, optional
+
+        limit: int, optional
+
+        Examples
+        --------
+        >>> from substrait_dataframe import Field, Relation, DataFrame
+
+        >>> r1 = Relation("penguins", fields=[
+        ...     Field("species", "string"),
+        ... ])
+
+        >>> df = DataFrame(relation=r1)
+
+        """
         self.name = name
         self.fields = fields
 
