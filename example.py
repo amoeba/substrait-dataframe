@@ -1,4 +1,5 @@
 import duckdb
+import datafusion
 import pyarrow as pa
 
 from substrait_dataframe import (
@@ -9,6 +10,7 @@ from substrait_dataframe import (
     Field,
     Relation,
 )
+
 
 con = duckdb.connect()
 con.sql("INSTALL substrait FROM community;")
@@ -73,8 +75,6 @@ df.execute().to_pandas()
 
 # Now we can switch our backend to DataFusion, run the same code, and get
 # identical results.
-
-import datafusion
 
 ctx = datafusion.SessionContext(datafusion.SessionConfig())
 
