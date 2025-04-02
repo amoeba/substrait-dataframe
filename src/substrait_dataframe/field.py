@@ -5,6 +5,26 @@ from substrait.proto import (
 
 class Field:
     def __init__(self, name, type):
+        """
+        Create a new Field.
+
+        Parameters
+        ----------
+        name: str
+            The name of the field.
+        type: str
+            The type of the field. Supported types are "string", "i32", "i64",
+            "fp32", and "fp64".
+
+        Examples
+        --------
+        >>> from substrait_dataframe import Field, Relation
+
+        >>> f1 = Field("species", "string")
+        >>> f2 = Field("island", "string")
+
+        >>> r1 = Relation(name="penguins", fields=[f1, f2])
+        """
         self.name = name
         self.type = self.lookup_type(type)
 
